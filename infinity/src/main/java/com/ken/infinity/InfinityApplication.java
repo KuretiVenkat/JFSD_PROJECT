@@ -8,6 +8,7 @@ public class InfinityApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(InfinityApplication.class, args);
+		System.out.println("Art Gallery successfully running");
 	}
 
 }

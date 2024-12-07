@@ -30,14 +30,15 @@ public class HomepageController {
     }
 
     @RequestMapping({"/", "/homepage"})
-    public String homepage(Model model){
+    public String homepage(Model model) {
         List<Artwork> artworks = artworkRepository.getArtworks();
-        List<Artwork> featured = artworks.subList(artworks.size()-6, artworks.size());
+        
+        // Calculate the fromIndex safely
+        int fromIndex = Math.max(0, artworks.size() - 6);
+        List<Artwork> featured = artworks.subList(fromIndex, artworks.size());
 
-
-        Map<Object, String> artAndOwner = new HashMap<Object, String>();
-
-        for(Artwork artwork: featured){
+        Map<Object, String> artAndOwner = new HashMap<>();
+        for (Artwork artwork : featured) {
             artAndOwner.put(artwork, artworkService.getArtOwnerName(artwork));
         }
 
@@ -45,23 +46,16 @@ public class HomepageController {
 
         model.addAttribute("artworks", featured);
         model.addAttribute("artAndOwner", artAndOwner);
-        System.out.println(model);
 
         List<Workshop> workshops = workshopService.getWorkshops();
         Map<Object, String> workshopAndOrganizer = new HashMap<>();
-        for(Workshop workshop: workshops){
+        for (Workshop workshop : workshops) {
             workshopAndOrganizer.put(workshop, workshopService.getWorkshopOrganizerName(workshop));
         }
+
         model.addAttribute("workshops", workshops);
         model.addAttribute("workshopAndOrganizer", workshopAndOrganizer);
 
-
         return "homepage";
     }
-
-    @GetMapping("/about")
-    public String about(){
-        return "about";
-    }
-
 }

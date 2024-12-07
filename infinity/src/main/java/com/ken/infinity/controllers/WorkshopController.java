@@ -146,7 +146,7 @@ public class WorkshopController {
 
 //      start sending mail
 
-        String from = "nairobi.sen.42@gmail.com";
+        String from = "2200032512cseh@gmail";
         String to = user.getEmail();
 
         SimpleMailMessage message = new SimpleMailMessage();
